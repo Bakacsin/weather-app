@@ -1,0 +1,157 @@
+<div *ngIf="items?.length > 0;else noItems">
+  <ul *ngFor="let item of items" class="collection">
+    <mat-card>
+      <mat-card-header fxLayout="row">
+        <mat-card-title><strong>{{item.name}}</strong> </mat-card-title>
+        <div fxFlex></div>
+        <a href="#" class="secondary-content">
+          <mat-icon (click)="editItem($event, item)">add</mat-icon>
+          <mat-icon *ngIf="editState && itemToEdit.id == item.id" (click)="clearState()">minimize</mat-icon>
+        </a>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>Main temperature: {{item.main.temp}}</mat-list-item>
+          <mat-list-item>Min temperature: {{item.main.temp_min}}</mat-list-item>
+          <mat-list-item>Max temperature: {{item.main.temp_max}}</mat-list-item>
+          <mat-list-item>Humidity: {{item.main.humidity}}</mat-list-item>
+          <mat-list-item>Pressure: {{item.main.pressure}}</mat-list-item>
+          <mat-list-item>Description: {{item.weather[0].description}}</mat-list-item>
+         </mat-list>
+        
+      </mat-card-content>
+      <mat-card-footer>
+        <p>{{item.id}}</p>
+      </mat-card-footer>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <div *ngIf="editState && itemToEdit.id == item.id">
+      <form (ngSubmit)="updateItem(item)">
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.name" name="name" >
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.timezone" name="timezone">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.cod" name="cod">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.coord.lon" name="lon">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.coord.lat" name="lat">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.weather[0].id" name="weather.id">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.weather[0].main" name="weather.main">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.weather[0].description" name="weather.description">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.weather[0].icon" name="weather.icon">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.base" name="base">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.main.temp" name="mtemp">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.main.feels_like" name="mfeels">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.main.temp_min" name="mtempmin">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.main.temp_max" name="mtempmax">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.main.pressure" name="mpressure">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"[(ngModel)]="item.main.humidity" name="mhumidity">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" [(ngModel)]="item.visibility" name="visibility">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.wind.speed" name="windspeed">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.wind.deg" name="winddeg">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.wind.gust" name="windgust">
+           
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.clouds.all" name="clouds">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.dt" name="dt">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.sys.type" name="stype">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.sys.id" name="sid">
+           
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.sys.country" name="scountry">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.sys.sunrise" name="ssunrise">
+           
+          </div>
+          <div class="input-field col s6">
+            <input type="text"  [(ngModel)]="item.sys.sunset" name="ssunset">
+            
+          </div>
+          <div class="input-field col s6">
+            <input type="text" placeholder="Add your note" [(ngModel)]="item.note" name="note">
+            
+          </div>
+          
+        </div>
+        <input type="submit" value="Update" class="btn orange">
+        <button mat-raised-button (click)="deleteItem($event, item)" class="btn red"><mat-icon>delete</mat-icon>Delete</button>
+      </form>
+    </div>
+    
+  </ul>
+</div>
+
+<ng-template #noItems>
+  <hr>
+  <h5>There are no items.</h5>
+</ng-template>

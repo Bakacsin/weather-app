@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "weather-app-szv": {
+      "hosting": {
+        "weather-app": [
+          "weather-app-szv"
+        ]
+      }
+    }
+  }
+}
